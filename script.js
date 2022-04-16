@@ -12,7 +12,10 @@ getDay();
 // make timeblock divs editable when clicked on
 var editBlock = function () {
   var text = $(this).text().trim();
-  var textInput = $("<textarea>").addClass("form-control col-10").val(text);
+  var textInput = $("<textarea>")
+    .addClass("form-control col-10 time-block text-left")
+    .val(text);
+  textInput.attr("id", $(this).attr("id"));
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
   console.log("clicked");
@@ -20,6 +23,7 @@ var editBlock = function () {
 
 $(".saveBtn").on("click", function () {
   var text = $(this).siblings("textarea").val().trim();
+
   var hour = $(this).siblings(".time-block").attr("id");
 
   console.log(hour);
