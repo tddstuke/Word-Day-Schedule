@@ -46,29 +46,23 @@ var loadTask = function (taskEl) {
   console.log(text);
 
   $(taskEl).text(text);
-  // $(tasks).each(function (items) {
-  //   var text = tasks.text;
-  //   var hour = tasks.hour;
-  //   var taskP = $("<p>").addClass("col-10 task-area text-left mt-2").text(text);
-  //   $(".time-block").find().siblings(".hour").is(hour).replaceWith(taskP);
-  // });
 };
 
 // add color codes time-blocks for time of day
 var auditTask = function (taskEl) {
   // get time from task element
-  var hour = $(taskEl).attr("id");
+  var hour = parseInt($(taskEl).attr("id"));
   console.log(hour);
   // convert to a dayjs object
-  var time = dayjs().hour(hour, "H");
+  var time = dayjs().hour();
   console.log(time);
 
   // apply new class if task is near/over due date
-  if (dayjs().isAfter(time)) {
-    $(taskEl).addClass("bg-secondary");
-  } else if (dayjs() === time) {
-    $(taskEl).addClass("bg-danger");
-  } else $(taskEl).addClass("bg-success");
+  if (hour < time) {
+    $(taskEl).addClass("past");
+  } else if (hour === time) {
+    $(taskEl).addClass("present");
+  } else $(taskEl).addClass("future");
 };
 
 var saveTask = function (hour, text) {
