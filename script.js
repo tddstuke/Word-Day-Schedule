@@ -13,7 +13,7 @@ getDay();
 var editBlock = function () {
   var text = $(this).text().trim();
   var textInput = $("<textarea>")
-    .addClass("form-control col-10 time-block text-left")
+    .addClass("form-control col-10 time text-left")
     .val(text);
   textInput.attr("id", $(this).attr("id"));
   $(this).replaceWith(textInput);
@@ -24,12 +24,10 @@ var editBlock = function () {
 $(".saveBtn").on("click", function () {
   var text = $(this).siblings("textarea").val().trim();
 
-  var hour = $(this).siblings(".time-block").attr("id");
+  var hour = $(this).siblings(".time").attr("id");
 
   console.log(hour);
-  var taskP = $("<p>")
-    .addClass("col-10 time-block text-left m-0 pt-2")
-    .text(text);
+  var taskP = $("<p>").addClass("col-10 time text-left m-0 pt-2").text(text);
 
   $(this).siblings("textarea").replaceWith(taskP);
   $(taskP).attr("id", hour);
@@ -48,7 +46,7 @@ var loadTask = function (taskEl) {
   $(taskEl).text(text);
 };
 
-// add color codes time-blocks for time of day
+// add color codes times for time of day
 var auditTask = function (taskEl) {
   // get time from task element
   var hour = parseInt($(taskEl).attr("id"));
@@ -71,17 +69,17 @@ var saveTask = function (hour, text) {
 
 // timer
 setInterval(function () {
-  $(".time-block").each(function (index, el) {
+  $(".time").each(function (index, el) {
     auditTask(el);
     console.log("timer");
   });
 }, 1000 * 60);
 
-$(".row").on("click", ".time-block", editBlock);
+$(".row").on("click", ".time", editBlock);
 
 // loadTask();
 
-$(".time-block").each(function (index, el) {
+$(".time").each(function (index, el) {
   auditTask(el);
   loadTask(el);
 });
