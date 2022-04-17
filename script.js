@@ -33,49 +33,61 @@ $(".saveBtn").on("click", function () {
 
   $(this).siblings("textarea").replaceWith(taskP);
   $(taskP).attr("id", hour);
-  var task = {
-    text: text,
-    hour: hour,
-  };
-  tasks.push(task);
-  console.log(task);
-  saveTask();
+  saveTask(hour, text);
   auditTask(taskP);
-  console.log(tasks);
 });
 
 var createTask = function () {};
 
 // make save function tied to buttons
-var loadTask = function () {
-  tasks = JSON.parse(localStorage.getItem("task"));
-  console.log(tasks);
-  // if (!tasks) return "";
-  $(tasks).each(function (items) {
-    var text = tasks.text;
-    var hour = tasks.hour;
-    var taskP = $("<p>").addClass("col-10 task-area text-left mt-2").text(text);
-    $(".time-block").find().siblings(".hour").is(hour).replaceWith(taskP);
-  });
+var loadTask = function (taskEl) {
+  var hour = $(taskEl).attr("id");
+  var text = localStorage.getItem(hour);
+  console.log(text);
+
+  $(taskEl).text(text);
+  // $(tasks).each(function (items) {
+  //   var text = tasks.text;
+  //   var hour = tasks.hour;
+  //   var taskP = $("<p>").addClass("col-10 task-area text-left mt-2").text(text);
+  //   $(".time-block").find().siblings(".hour").is(hour).replaceWith(taskP);
+  // });
 };
 
+// add color codes time-blocks for time of day
 var auditTask = function (taskEl) {
   // get time from task element
   var hour = $(taskEl).attr("id");
+  console.log(hour);
   // convert to a dayjs object
   var time = dayjs().hour(hour, "H");
   console.log(time);
+
   // apply new class if task is near/over due date
   if (dayjs().isAfter(time)) {
+    $(taskEl).addClass("bg-secondary");
+  } else if (dayjs() === time) {
     $(taskEl).addClass("bg-danger");
   } else $(taskEl).addClass("bg-success");
 };
 
-var saveTask = function () {
-  localStorage.setItem("task", JSON.stringify(tasks));
+var saveTask = function (hour, text) {
+  localStorage.setItem(hour, text);
 };
-// add color codes time-blocks for time of da
+
+// timer
+setInterval(function () {
+  $(".time-block").each(function (index, el) {
+    auditTask(el);
+    console.log("timer");
+  });
+}, 1000 * 60);
 
 $(".row").on("click", ".time-block", editBlock);
-auditTask($(".time-block"));
+
 // loadTask();
+
+$(".time-block").each(function (index, el) {
+  auditTask(el);
+  loadTask(el);
+});
