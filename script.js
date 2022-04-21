@@ -17,7 +17,7 @@ var editBlock = function () {
   textInput.attr("id", $(this).attr("id"));
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
-  console.log("clicked");
+  // console.log("clicked");
 };
 
 $(".saveBtn").on("click", function () {
@@ -67,7 +67,7 @@ var saveTask = function (hour, text) {
 setInterval(function () {
   $(".time").each(function (index, el) {
     auditTask(el);
-    // console.log("timer");
+    console.log("timer");
   });
 }, 1000 * 60);
 
