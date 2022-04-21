@@ -12,3 +12,4 @@ This is a Day Scheduler built with HTML, CSS and JavaScript
 - If you refresh the page saved data will be loaded back into time blocks
 
 URL: https://tddstuke.github.io/Work-Day-Schedule/
+![Screenshot (14)](https://user-images.githubusercontent.com/98231816/164351385-bd7029c3-dd55-4761-bba4-1992ee84e805.png)
